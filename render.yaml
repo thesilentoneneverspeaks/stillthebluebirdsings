@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: my-web-service
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    regions:
+      - oregon
+    branch: main
+
+  - type: background
+    name: my-background-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python worker.py
+    plan: free
+    regions:
+      - oregon
+    branch: main
+
+  - type: static
+    name: my-static-site
+    buildCommand: npm run build
+    publishDirectory: ./build
+    plan: free
+    regions:
+      - oregon
+    branch: main
+
+databases:
+  - name: my-database
+    type: postgres
+    plan: free
+    regions:
+      - oregon
+    branch: main
